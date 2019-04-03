@@ -1,0 +1,1216 @@
+Java知识点：
+     
+1、类的封装的定义及好处
+隐藏对象的属性和实现细节，仅对外提供访问方式
+好处：1将变化隔离 2便于使用  3提高复用性  4提高安全性
+2、构造方法的定义和一般方法的区别：
+     1 方法名和类名不同  2 方法名前面无返回值类型声明    3不能使用return返回一条语句
+  区别：1写法不同  2运行不同     构造方法是对象一创建就调用只调用一次，一般方法是在对象创建完成后调用多次
+3、static关键字的特点
+  1、静态成员随着类的加载而加载  2、静态成员优先于对象存在    3、静态成员被所有的对象共享   4、静态成员直接被类名调用
+4、抽象类的定义和特点
+   当描述事物时没有足够的信息对事物进行描述，该类就是抽象类
+   特点：  1 没有方法体的方法是抽象方法，定义在抽象类中
+                2抽象类调用方法用abstract修饰
+                3不可以实例化，调用抽象方法无意义
+                4抽象类一定要被继承必须有子类覆盖所有的抽象的方法后子类进行实例化
+                5抽象类是个父类有构造方法不可以定义抽象方法，不可以和final , private ,static共存
+5、接口的特点以及抽象类的异同点
+      接口特点：1用interface定义    2成员有固定的修饰符  3不能被实例化   4接口必须有子类覆盖所有的抽象方法后才可以实例化                           5接口中的成员都是public修饰的
+      共同点：都是不断抽取而来的
+      不同点：1 接口中可以有常量不能有变量，抽象类中可以有常量和变量
+                      2接口多实现，抽象类单继承
+                      3抽象类中定义抽象内容直接提供给子类使用，接口中只能定义抽象方法，需要子类全部实现。
+6、java中实现多态的机制是什么
+      重写和重载是java多态性的不同表现。重写是父类和子类之间多态性的一种表现，重载是一个类中多态性的一种表现。
+     如果在子类中定义的某个方法和其父类有相同的名称和参数，我们说该方法被重写，子类的对象使用这个方法时将调用子类中的定义，对他而言父类中的定义如同被屏蔽了。
+     如果在一个类中定义了多个同名的方法，他们或有不同的参数个数或有不同的参数类型，则称为方法的重载，可以改变返回值的类型。
+ 7、string和stringBuffer的区别以及StringBuffer和StringBuilder的区别
+       String重写了equals方法比较的是内容，stringbuffer比较的是地址，内容可变化
+      StringBuffer  非同步，单线程访问效率高，不安全
+      StringBuilder 同步，多线程访问安全，效率低
+8、ArrayList，LinkedList和Vector的异同
+        ArrayList和vector相同点底层都是数组结构  ，LinkedList底层是链表结构
+        Vector：安全，效率低，被arraylist取代
+       ArrayList: 不安全，查询速度快，增删慢，效率高
+        LinkedList: 不安全，链表结构，增删快，查询慢，效率高
+
+9、字节流和字符流区别
+     1 字节流不使用缓冲区不关闭也可输出内容，字符流占用缓冲区，必须关闭。
+     2字节流方便使用，字符流操作解决中文乱码问题
+
+10、HashMap和HashTable的区别
+       共同点：底层都是hash算法，都是双列集合
+       不同点：1 hashmap 线程不安全，效率高，hashtable线程安全，效率低
+                       2 hashmap可以存储null键和null值，hashtable不可以
+11、Person p =  new Person 在内存中做了哪些事情？
+           A  将Person的class加载到内存
+           B  在栈内存中开辟一个变量空间p
+           C  在堆内存中创建一个对象person
+           D  把peraon中的属性进行默认和初始化
+           E  把对象内存地址赋给p变量，让p变量指向该对象
+
+
+12、什么是java序列化，如何实现java序列化
+         序列化：就是一种处理对象流的机制，将对象的内容进行流化，可以对流化后的对象进行读写操作，也可以将流化后的对象传输于网络之间，序列化是为了解决在对对象流进行读写操作时所引发的问题。
+        序列化的实现：将需要被序列化的类实现Serializable接口，然后使用一个输出流（FileOutputStream）来构造一个ObjectOutputStream（对象流）对象，接着使用ObjectOutputStream对象的writerObject(Object obj)方法就可以将参数为obj对象写出，要恢复的话则使用输出流ObjectinputStream.
+
+13、UDP 和 TCP的区别
+        UDP：面向无连接，数据不安全，传输数据不完整，速度快，不区分客户端和服务端。
+        TCP：面向连接（三次握手）数据安全，速度略低，分为客户端和服务端。
+14、反射通过3中方式获取字节码对象
+      （1）对象.getClass()                  Object类的getClass()方法，判断两个方法是否是同一个字节码文件
+      （2）类名.class                            静态属性class锁对象
+      （3）class.forName()                  class类中静态方法forName(),读取配置文件
+
+15、Throw和Throws关键字的区别
+       throw：用于抛出异常对象，后面跟的是异常对象，用在函数内。
+      throws:：用于抛出异常类，后面跟的是异常类名，可以跟多个，用在函数上。
+16、wait和sleep的区别
+       （1）wait线程会释放执行权，释放锁， sleep线程会释放执行权，但是不释放锁
+       （2）wait只能在同步控制方法或者同步控制块里面使用，sleep可以在任何地方使用
+       （3）sleep方法来自thread，wait方法来自object
+       （4）sleep必须捕获异常，而wait，notify，notifyAll不需要捕获异常。
+
+17、Dalvik和jvm的区别
+
+   1 Dalvik基于寄存器，jvm基于栈。Dalvik花费时间短。
+   2Dalvik主要是完成对象生命周期，堆栈管理，线程管理，安全和异常以及垃圾回收功能。
+   3 Dalvik负责进程隔离和线程管理，每个android应用在底层都会对应一个独立的Dalvik虚拟机其代码在虚拟机解析下得运行。
+   4不同的java虚拟机运行java字节码，Dalvik虚拟机运行专有的文件格式Dex,ex文件格式减少文件尺寸，提高IO流速度。
+
+19、Java对象的生命周期是什么？
+
+（1）加载：将类的信息加载到JVM的方法区，然后在堆区中实例化一个java.lang.Class对象，作为方法去中这个类的信息入口。
+
+（2）连接：验证：验证类是否合法。准备：为静态变量分配内存并设置JVM默认值，非静态变量不会分配内存。解析：将常量池里的符号引用转换为直接引用。
+
+（3）初始化：初始化类的静态赋值语句和静态代码块，主动引用会被触发类的初始化，被动引用不会触发类的初始化。
+
+（4）使用：执行类的初始化，主动引用会被触发类的初始化，被动引用不会触发类的初始化。
+
+（5）卸载：卸载过程就是清楚堆里类的信息，以下情况会被卸载：① 类的所有实例都已经被回收。② 类的ClassLoader被回 收。③ 类的CLass对象没有被任何地方引用，无法在任何地方通过 反射访问该类。
+
+20、Hash Map如何实现一个key对应多个value?
+      其实就是Hashmap + ArrayList去实现的
+
+HashMap<Integer,ArrayList<String>> map = new HashMap<Integer,ArrayList<String>>();
+ArrayList<String> list = new ArrayList<String>();
+list.add("abc");
+list.add("xyz");
+map.put(100,list);
+21、hashcode（）和equals（）的作用、区别、联系
+      hashCode()方法和equal()方法的作用其实一样，在Java里都是用来对比两个对象是否相等一致。
+      因为重写的equal（）里一般比较的比较全面比较复杂，这样效率就比较低，而利用hashCode()进行对比，则只要生成一个hash值进行比较就可以了，效率很高，那么hashCode()既然效率这么高为什么还要equal()呢？
+     因为hashCode()并不是完全可靠，有时候不同的对象他们生成的hashcode也会一样（生成hash值得公式可能存在的问题），所以hashCode()只能说是大部分时候可靠，并不是绝对可靠，所以我们可以得出：
+       1.equal()相等的两个对象他们的hashCode()肯定相等，也就是用equal()对比是绝对可靠的。
+       2.hashCode()相等的两个对象他们的equal()不一定相等，也就是hashCode()不是绝对可靠的。
+所有对于需要大量并且快速的对比的话如果都用equal()去做显然效率太低，所以解决方式是，每当需要对比的时候，首先用hashCode()去对比，如果hashCode()不一样，则表示这两个对象肯定不相等,如果hashCode()相同，此时再对比他们的equal()，如果equal()也相同，则表示这两个对象是真的相同了，这样既能大大提高了效率也保证了对比的绝对正确性！
+
+
+
+1、多线程
+      1.1.、什么是线程？
+                 在一个进程内部又可以执行多个任务，而这每个任务我们可以看成是一个线程，是程序使用CPU的基本单位。
+      1.2、什么是进程？
+                正在运行的程序，是系统进行资源分配和调用的独立单位，每一个进程都有它自己的内存空间和系统资源。
+      1.3、进程与线程的区别
+               一个进程中有若干个线程，至少有一个线程
+              区别：1 进程有独立的进程空间，数据存放是独立的       2 线程的堆空间共享，栈控件独立的，线程消耗资源少。
+      1.4、 多线程的意义？
+                 多线程不是提高执行速度，而是提高应用程序的使用率。
+      1.5、并行和并发：
+                并行是逻辑上同时发生，指某一个时间内同时运行多个程序。
+                并发是物理上同时发生，指某一个时间点同时运行多个程序。
+       1.6、java程序运行原理
+                java命令会启动java虚拟机，启动jvm等于启动了一个应用程序也就是启动了一个进程，该进程会自动启动一个“主线程”，然后主线程去调用某个类的main方法，所以main方法运行在主线程中。
+       1.7、 jvm的启动是多线程吗？
+                  jvm启动至少启动了垃圾回收线程和主线程，所以是多线程
+       1.8、多线程两种方式的区别？
+                run方法只是调用了Thread实例的run()方法而已，仍然运行在主线程上，而start方法会开辟一个新的线程，在新的线程上调用run（）方法，此时运行在新的线程上。
+      1.9、线程有两种调度模型
+                  分时调度模型：所有线程轮流使用cpu的使用权，平均分配每个线程占用cpu的时间片
+                  抢占式调度模型：优先级高的先使用cpu，若相同随机选一个，java使用的是抢占式调度模型。
+      1.10、同步代码块方式解决了线程安全问题，但是有优缺点
+                 优点：解决了多线程安全问题
+                 缺点：当线程多时，每个线程都会去判断同步上的锁，耗费资源，无形中降低程序的运行效率。 
+      1.11、继承Thread类创建多线程的步骤
+               1 将类声明为thread类的子类   2 在子类中覆盖thread类的方法  3  创建thread类的子类对象  4  调用start方法开启线程
+      1.12、实现Runnable接口创建多线程的步骤
+               1  创建实现Runnable接口的类并实现run方法       2    创建该类的实例对象    
+               3  传递给thread类的构造方法创建thread对象      4调用start方法开启线程
+      1.13、有T1、T2、T3三个线程，如何怎样保证T2在T1执行完后执行，T3在T2执行完后执行？
+             join方法的功能是使异步执行的线程变成同步执行。即调用线程实例的start方法后，该方法会立即返回，如果调用start方法后，需要使用一个由这个线程计算得到的值，就必须使用join方法。如果不使用join方法，就不能保证当执行到start方法后面的某条语句时，这个线程一定会执行完。而使用join方法后，直到这个线程退出，程序才会往下执行。
+     1.14. Java中怎样唤醒一个阻塞的线程？ 
+          如果是IO阻塞，创建线程时，加一个数量的阈值，超过该值后则不再创建。或者为每个线程设置标志变量标志该线程是否已经束，三就是直接加入线程组去管理。
+如果线程因为调用 wait()、sleep()、或者join()方法而导致的阻塞，你可以中断线程，并且通过抛出InterruptedException来唤醒它
+
+      1.15、死锁怎么导致的？如何定位死锁
+                 某个任务在等待另一个任务，而后者又等待别的任务，这样一直下去，直到这个链条上的任务又在等待第一个任务释放锁。这得到了一个任务之间互相等待的连续循环，没有哪个线程能继续。这被称之为死锁。当以下四个条件同时满足时，就会产生死锁
+            (1) 互斥条件。任务所使用的资源中至少有一个是不能共享的。
+            (2) 任务必须持有一个资源，同时等待获取另一个被别的任务占有的资源。
+            (3) 资源不能被强占。
+            (4) 必须有循环等待。
+要解决死锁问题，必须打破上面四个条件的其中之一。在程序中，最容易打破的往往是第四个条件
+       1.16、多线程的使用场景
+               使用多线程就一定效率高吗？ 有时候使用多线程并不是为了提高效率，而是使得CPU能够同时处理多个事件
+            （1）为了不阻塞主线程,启动其他线程来做好事的事情,比如APP中耗时操作都不在UI中做
+            （2）实现更快的应用程序,即主线程专门监听用户请求,子线程用来处理用户请求,以获得大的吞吐量.感觉这种情况下，多线程的效率未必高。 这种情况下的多线程是为了不必等待， 可以并行处理多条数据
+            （3）某种虽然优先级很低的服务，但是却要不定时去做。比如jvm的垃圾回收
+            （4）某种任务，虽然耗时，但是不耗CPU的操作时，开启多个线程，效率会有显著提高。比如读取文件，然后处理。 磁盘IO是个很耗费时间，但是不耗CPU计算的工作。 所以可以一个线程读取数据，一个线程处理数据。肯定比一个线程读取数据，然后处理效率高。 因为两个线程的时候充分利用了CPU等待磁盘IO的空闲时间
+         1.17、线程池的相关知识。
+                Android中的线程池都是之间或间接通过配置ThreadPoolExecutor来实现不同特性的线程池.Android中最常见的四类具有不同特性的线程池分别为FixThreadPool、CachedThreadPool、SingleThreadPool、ScheduleThreadExecutor.
+FixThreadPool：只有核心线程,并且数量固定的,也不会被回收,所有线程活动时,队列没有限制大小,新任务会等待执行. 
+                           优点:更快的响应外界请求.
+CachedThreadPool：只有非核心线程,最大线程数大,所有线程都活动时,会为新任务创建新线程,否则会利用空闲线程处理任务.
+                           优点:任何任务都会被立即执行，比较适合执行大量的耗时较少的任务 
+SingleThreadPool：只有一个核心线程,确保所有的任务都在同一线程中按顺序完成.因此不需要处理线程同步的问题. ScheduleThreadExecutor：核心线程数固定,非核心线程(闲着没活干会被立即回收)数没有限制.
+                            优点:执行定时任务以及有固定周期的重复任务
+2、网络编程
+        2.1、网络体系结构          
+
+应用层      （HTTP、FTP、DNS、SMTP等等）
+运输层      （TCP、UDP）
+网络层      （IP等）
+数据链路层  （ARP等）
+物理层
+1.应用层：如http协议，它实际上是定义了如何包装和解析数据，应用层是http协议的话，则会按照协议规定包装数据，如按照请求行、请求头、请求体包装，包装好数据后将数据传至运输层。
+2.运输层：运输层有TCP和UDP两种协议，分别对应可靠的运输和不可靠的运输，如TCP因为要提供可靠的传输，所以内部要解决如何建立连接、如何保证传输是可靠的不丢数据、如何调节流量控制和拥塞控制。关于这一层，我们平常一般都是和Socket打交道，Socket是一组封装的编程调用接口，通过它，我们就能操作TCP、UDP进行连接的建立等。我们平常使用Socket进行连接建立的时候，一般都要指定端口号,所以这一层指定了把数据送到对应的端口号。
+3.网络层：这一层IP协议，以及一些路由选择协议等等，所以这一层的指定了数据要传输到哪个IP地址。中间涉及到一些最优线路，路由选择算法等等。
+4.数据链路层：印象比较深的就是ARP协议，负责把IP地址解析为MAC地址，即硬件地址，这样就找到了对应的唯一的机器。
+5.物理层：这一层就是最底层了，提供二进制流传输服务，也就是也就是真正开始通过传输介质（有线、无线）开始进行数据的传输了。
+        2.2、HTTPS为什么安全
+                Https保证了我们数据传输的安全，Https=Http+Ssl
+之所以能保证安全主要的原理就是利用了非对称加密算法，非对称加密算法之所以能实现安全传输的核心精华就是：公钥加密的信息只能用私钥解开，私钥加密的信息只能被公钥解开。服务端申请CA机构颁发的证书，则获取到了证书的公钥和私钥，私钥只有服务器端自己知道，而公钥可以告知其他人，如可以把公钥传给客户端，这样客户端通过服务端传来的公钥来加密自己传输的数据，而服务端利用私钥就可以解密这个数据了。由于客户端这个用公钥加密的数据只有私钥能解密，而这个私钥只有服务端有，所以数据传输就安全了。
+
+        2.3、Socket介绍           
+           （1） Socket就是为网络服务提供的一种机制
+           （2）  通信的两端都有Socket
+           （3）  网络通信其实就是Socket间的通信
+           （4）  数据在两个Socket间通过IO传输
+           （5）  Socket的简单使用的话应该都会，两个端各建立一个Socket，服务端的叫ServerSocket，然后建立连接即可
+
+3、JVM相关知识，GC机制，类加载器，双亲机制，android的类加载器      
+
+1、从上图可知，JVM主要包括四个部分：类加载器，执行引擎，内存区，本地方法接口
+
+1.类加载器（ClassLoader）:在JVM启动时或者在类运行时将需要的class加载到JVM中。
+2.执行引擎：负责执行class文件中包含的字节码指令；
+4.本地方法接口：主要是调用C或C++实现的本地方法及返回结果。
+3.内存区（也叫运行时数据区）：是在JVM运行的时候操作所分配的内存区。运行时内存区主要可以划分为5个区域
+       （1）方法区(Method Area)：用于存储类结构信息的地方，包括常量池、静态变量、构造函数等。虽然JVM规范把方法区描述为堆的一个逻辑部分， 但它却有个别名non-heap（非堆），所以大家不要搞混淆了。方法区还包含一个运行时常量池。                   （2）java堆(Heap)：存储java实例或者对象的地方。这块是GC的主要区域。从存储的内容我们可以很容易知道，方法区和堆是被所有java线程共享的。
+       （3）java栈(Stack)：java栈总是和线程关联在一起，每当创建一个线程时，JVM就会为这个线程创建一个对应的java栈。在这个java栈中又会包含多个栈帧，每运行一个方法就创建一个栈帧，用于存储局部变量表、操作栈、方法返回值等。每一个方法从调用直至执行完成的过程，就对应一个栈帧在java栈中入栈到出栈的过程。所以java栈是现成私有的。
+       （4）程序计数器(PC Register)：用于保存当前线程执行的内存地址。由于JVM程序是多线程执行的，所以为了保证线程切换回来后，还能恢复到原先状态，就需要一个独立的计数器，记录之前中断的地方，可见程序计数器也是线程私有的。
+       （5）本地方法栈(Native Method Stack)：和java栈的作用差不多，只不过是为JVM使用到的native方法服务的。
+
+2、 GC机制
+垃圾收集器一般必须完成两件事：检测出垃圾；回收垃圾。怎么检测出垃圾？一般有以下几种方法：
+
+引用计数法：
+给一个对象添加引用计数器，每当有个地方引用它，计数器就加1；引用失效就减1。好了，问题来了，如果我有两个对象A和B，互相引用，除此之外，没有其他任何对象引用它们，实际上这两个对象已经无法访问，即是我们说的垃圾对象。但是互相引用，计数不为0，导致无法回收，所以还有另一种方法：
+
+可达性分析算法：
+
+以根集对象为起始点进行搜索，如果有对象不可达的话，即是垃圾对象。这里的根集一般包括java栈中引用的对象、方法区常良池中引用的对象、本地方法中引用的对象等。
+总之，JVM在做垃圾回收的时候，会检查堆中的所有对象是否会被这些根集对象引用，不能够被引用的对象就会被垃圾收集器回收。一般回收算法也有如下几种：
+
+     1).标记-清除（Mark-sweep）
+     2).复制（Copying
+     3).标记-整理（Mark-Compact）
+     4).分代收集算法
+
+3、类加载器
+      当程序在运行时，即会调用该程序的一个入口函数来调用系统的相关功能，而这些功能都被封装在不同的class文件当中，而程序在启动的时候，并不会一次性加载程序所要用的所有class文件，而是根据程序的需要，通过Java的类加载机制（ClassLoader）来动态加载某个class文件到内存当中的，从而只有class文件被载入到了内存之后，才能被其它class所引用。所以ClassLoader就是用来动态加载class文件到内存当中用的。
+
+4、Android类加载器
+       对于Android而言，最终的apk文件包含的是dex类型的文件，dex文件是将class文件重新打包，打包的规则又不是简单地压缩，而是完全对class文件内部的各种函数表，变量表进行优化，产生一个新的文件，即dex文件。因此加载这种特殊的Class文件就需要特殊的类加载器DexClassLoader。
+
+4、饿汉式和懒汉式，数据结构排序
+     //饿汉式 
+class Singleton {  
+    private Singleton() {} 
+    private static Singleton s = new Singleton(); 
+    public static Singleton getInstance() {  
+         return s; 
+        } 
+      }  
+
+//懒汉式 
+class Student { 
+    private Student() {} 
+    private static Student s = null ;  
+    public static Student getInstance() { 
+    public static synchronized Student getInstance() {    //加锁同步安全
+        if (s == null) {  
+          s = new Student();    
+        }         
+      return s;   
+} }  
+
+二者区别：
+**饿汉式是类一加载进内存就创建好了对象；懒汉式是类加载进内存的时候，对象还没有存在，要使用该对象的时候再new出来
+*懒汉式是延迟加载，如果多个线程同时操作懒汉式时就有可能出现线程安全问题 为解决饱汉式的线程安全问题，解决线程安全问题可以加同步来解决。但是加了同步之后，每一次都要比较锁，效率就变慢了，可以通过双重判断来提高程序效率。 
+所谓“双重检查加锁”机制，指的是：并不是每次进入getInstance方法都需要同步，而是先不同步，进入方法后，先检查实例是否存在，如果不存在才进行下面的同步块，这是第一重检查，进入同步块过后，再次检查实例是否存在，如果不存在，就在同步的情况下创建一个实例，这是第二重检查。这样一来，就只需要同步一次了，从而减少了多次在同步情况下进行判断所浪费的时间 “双重检查加锁”机制的实现会使用关键字volatile，它的意思是：被volatile修饰的变量的值，将不会被本地线程缓存，所有对该变量的读写都是直接操作共享内存，从而确保多个线程能正确的处理该变量。
+
+class Student { 
+    private Student() {} 
+    private volatile static Student s = null;  
+    public static Student getInstance() {
+       //先检查实例是否存在，如果不存在才进入下面的同步块
+        if (s == null) {  
+            //同步快，线程安全创建实例
+           synchronized (Singleton.class) {
+             //再次检查实例是否存在，如果不存在才真正的创建实例
+                if(instance == null){
+                     s = new Student();    
+                }
+              }
+        }         
+      return s;   
+} } 
+
+冒泡排序
+
+public void sort(int[] args) 
+        {
+        	//第一层循环从数组的最后往前遍历
+    		for (int i = args.length - 1; i > 0 ; --i) {
+                //这里循环的上界是 i - 1，在这里体现出 “将每一趟排序选出来的最大的数从sorted移除”
+    			for (int j = 0; j < i; j++) {
+                    //保证在相邻的两个数中比较选出最大的并且进行交换(冒泡过程)
+    				if (args[j] > args[j+1]) {
+    					int temp = args[j];
+    					args[j] = args[j+1];
+    					args[j+1] = temp;
+    				}
+    			}
+    		}
+	    }
+选择排序
+
+public void sort(int[] args) 
+{
+        int len = args.length;
+        for (int i = 0,k = 0; i < len; i++,k = i) {
+            // 在这一层循环中找最小
+            for (int j = i + 1; j < len; j++) {
+                // 如果后面的元素比前面的小，那么就交换下标，每一趟都会选择出来一个最小值的下标
+                if (args[k] > args[j]) k = j;
+    		}
+    
+    		if (i != k) {
+    			int tmp = args[i];
+    			args[i] = args[k];
+    			args[k] = tmp;
+    		}
+    	}
+    }
+
+
+
+
+Android知识点：
+
+##1、什么情况下会导致内存泄露 ？
+
+      Android的虚拟机是基于寄存器的Dalvik，它的最大堆大小一般是16M，有的机器为24M。因此我们所能利用  的内存空间是有限的。如果我们的内存占用超过了一定的水平就会出现OutOfMemory的错误。 
+
+     内存溢出的几点原因： 
+   1、资源释放问题 
+       程序代码的问题，长期保持某些资源，如Context、Cursor、IO流的引用，资源得不到释放造成内存泄露。 
+   2、对象内存过大问题 
+       保存了多个耗用内存过大的对象（如 Bitmap、XML文件），造成内存超出限制。 
+   3、static关键字的使用问题 
+       static是Java中的一个关键字，当用它来修饰成员变量时，那么该变量就属于该类，而不是该类的实例。所  以用static修饰的变量，它的生命周期是很长的，如果用它来引用一些资源耗费过多的实例（Context的情况最  多），这时就要谨慎对待了。
+
+如何避免OOM异常  
+      1、图片过大导致OOM 
+        Android 中用 bitmap时很容易内存溢出，比如报如下错误：Java.lang.OutOfMemoryError 
+解决方法： 
+方法 1 ：等比例缩小图片 
+BitmapFactory.Options options = new BitmapFactory.Options(); 
+ options.inSampleSize = 2; 
+ //Options 只保存图片尺寸大小，不保存图片到内存 
+ BitmapFactory.Options opts = new BitmapFactory.Options(); 
+ opts.inSampleSize = 2; 
+Bitmap bmp = null; 
+ bmp = BitmapFactory.decodeResource(getResources(), 
+mImageIds[position],opts); 
+//回收  bmp.recycle();// 
+ 以上代码可以优化内存溢出，但它只是改变图片大小，并不能彻底解决内存溢出。 
+
+ 方法2 ：对图片采用软引用，及时地进行recyle()操作 
+SoftReference<Bitmap> bitmap = new SoftReference<Bitmap>(pBitmap); 
+if(bitmap != null){ 
+ if(bitmap.get() != null && !bitmap.get().isRecycled()){ 
+bitmap.get().recycle(); 
+ bitmap = null; 
+} } 
+
+2、界面切换导致OOM 
+有时候我们会发现这样的问题，横竖屏切换 N次后 OOM了。 这种问题没有固定的解决方法，我们从以下几个方面下手分析。 
+ 1、看看页面布局当中有没有大的图片，比如背景图之类的。 
+去除xml中相关设置，改在程序中设置背景图（放在onCreate()方法中）： 
+ Drawable drawable = getResources().getDrawable(R.drawable.id); 
+ImageView imageView = new ImageView(this); 
+imageView.setBackgroundDrawable(drawable); 
+在Activity destory时注意，drawable.setCallback(null); 防止Activity得不到及时的释放。 
+
+ 2、跟上面方法相似，直接把 xml 配置文件加载成 view 再放到一个容器里，然后直接调用 this.setContentView(Viewview);方法，避免xml的重复，在页面切换时尽可能少地重复使用一些代码  比如：重复调用数据库，反复使用某些对象等等...... 
+
+3、查询数据库没有关闭游标 
+        程序中经常会进行查询数据库的操作 ，但是经常会有使用完毕Cursor后没有关闭的情况。如果我们的查询结果集 比较小，对内存的消耗不容易被发现，只有在常时间大量操作的情况下才会出现内存问题，这样就会给以后的测试和 问题排查带来困难和风险。 
+
+4、构造Adapter时，那么我们应该尽可能的使用ConvertView。 
+
+5、Bitmap对象不再使用时调用recycle()释放内存  Bitmap.recycle()方法回收此对象的像素所占用的内存，但这不是必须的，视情况而定。 
+
+6、其他 Android应用程序中最典型的需要注意释放资源的情况是在Activity的生命周期中 ，在onPause()、onStop()、 onDestroy()方法中需要适当的释放资源的情况。 
+
+
+
+##2、Android中如何捕获未捕获的异常(重要) 
+       1、自定义一个Application ，比如叫MyApplication继承Application实现UncaughtExceptionHandler。 
+       2、覆写UncaughtExceptionHandler的onCreate和uncaughtException方法。 
+
+
+
+##3、数据存储的方式：
+
+1：文件存储：以IO流方式将数据存入手机内存或者SD卡，存储大数据，例如音乐，图片或者视频。
+2：SharedPreference: 本质是Xml文件，以Map形式存入手机内存，用于存储简单的参数设置。
+3：SQLite数据库：轻量级跨平台占用内存小所有信息存储在单一信息内。
+4 ：ContentProvider：Android四大组件之一，以数据库形式存入手机内存，共享自己的数据给其他数据使用，统一了数据访问方式，更规范。
+5：网络存储：将数据存储到服务器，使用时直接去服务器取，安全。
+
+
+
+##4、强引用<---------软引用<----------弱引用<------虚引用
+
+强引用特点：我们平常典型编码Object obj = new Object()中的obj就是强引用。通过关键字new创建的对象所关联的引用就是强引用。 当JVM内存空间不足，JVM宁愿抛出OutOfMemoryError运行时错误（OOM），使程序异常终止，也不会靠随意回收具有强引用的“存活”对象来解决内存不足的问题。对于一个普通的对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将相应（强）引用赋值为 null，就是可以被垃圾收集的了，具体回收时机还是要看垃圾收集策略。
+
+软引用特点：软引用通过SoftReference类实现。 软引用的生命周期比强引用短一些。只有当 JVM 认为内存不足时，才会去试图回收软引用指向的对象：即JVM 会确保在抛出 OutOfMemoryError 之前，清理软引用指向的对象。软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。后续，我们可以调用ReferenceQueue的poll()方法来检查是否有它所关心的对象被回收。如果队列为空，将返回一个null,否则该方法返回队列中前面的一个Reference对象。
+
+弱引用特点：通过WeakReference类实现。 弱引用的生命周期比软引用短。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。由于垃圾回收器是一个优先级很低的线程，因此不一定会很快回收弱引用的对象。弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。
+
+虚引用特点：虚引用也叫幻象引用，通过PhantomReference类来实现。无法通过虚引用访问对象的任何属性或函数。幻象引用仅仅是提供了一种确保对象被 finalize 以后，做某些事情的机制。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。虚引用必须和引用队列 （ReferenceQueue）联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。
+
+
+
+##5、android中的动画有哪几类，它们的特点和区别是什么  
+
+在Android3.0之前有两种动画，一种方式是补间动画 Tween Animation、另一种叫逐帧动画 Frame Animation
+
+Android3.0以后增加了属性动画 Property Animation。这样动画被分为两部分：1：Tween Animation、Frame Animation只能用于View，被归类为View Animation                     2：Property   Animation
+
+属性动画与视图动画的区别：
+
+1：属性动画是真实地改变控件的属性               补间动画是改变控件的绘制（通过Matrix）
+2：属性动画出现在android 3.0，api11，         补间动画出现与API1
+3：属性动画可以作用于View和非View             补间动画只能作用于View
+
+
+
+##6、activity的启动模式有哪些？是什么含义？
+  [1]standard 标准模式 ,每当启动一个新的activity,他会进入任务栈并处于栈顶，先进后出原则。
+  [2]singleTop 单一顶部模式  在创建这个activity的实例的时候 就会检查当前任务栈的栈顶,如果发现该实例已经创建就不会创建            新的实例,会直接复用 
+  [3]singleTask 如果配置这种启动模式,当创建这个类的实例的时候会检查当前的任务栈是否有该实例存在如果有直接复用,并且还会把这个实例上面的actvity都清空.
+  [4] singleInstance 如果需要activity在整个系统中只有一个实例,会为这个activity单独创建一个任务栈,采用这种模式分两种情况：
+      1要启动的activity不存在创建一个新的任务栈在创建该activity实例，加入栈顶。
+      2要启动的activity存在，无论位于哪个任务栈中都会将该任务栈转到前台显示activity
+
+ 应用场景:
+  [1]大多数都是使用标准的启动模式
+  [2] singleTop 浏览器的书签页面 
+  [3] singleTask 浏览器的浏览页面
+  [4 ]singleInstance 来电页面  
+
+
+
+##7、activity在屏幕旋转时的生命周期
+1、不设置Activity的android:configChanges时，切屏会重新调用各个生命周期，切横屏时会执行一次，切竖屏时会执行两次
+2、设置Activity的android:configChanges="orientation"时，切屏还是会重新调用各个生命周期，切横、竖屏时只会执行一次
+3、设置Activity的android:configChanges="orientation|keyboardHidden"时，切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法
+
+两个 Activity 跳转的生命周期，如果一个 Activity 跳转另一个 Activity 再按下 Home 键在回到 Activity 的生命周期是什么样的
+两个 Activity 跳转的生命周期
+1.启动A
+onCreate - onStart -  onResume
+
+2.在A中启动B
+ActivityA  onPause
+ActivityB  onCreate
+ActivityB  onStart
+ActivityB  onResume
+ActivityA  onStop
+
+3.从B中返回A（按物理硬件返回键）
+ActivityB onPause
+ActivityA onRestart
+ActivityA onStart
+ActivityA onResume
+ActivityB onStop
+ActivityB onDestroy
+
+4.继续返回
+ActivityA onPause
+ActivityA onStop
+ActivityA onDestroy
+
+
+
+##8、注册广播有几种方式，这些方式有何优缺点？请谈谈Android引入广播机制的用意。
+  第一种:在清单文件中声明,添加
+<receive android:name=".IncomingSMSReceiver " >
+<intent-filter>
+   <action android:name="android.provider.Telephony.SMS_RECEIVED")
+<intent-filter>
+<receiver>
+第二种使用代码进行注册如:
+IntentFilter filter =  new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+IncomingSMSReceiver receiver = new IncomgSMSReceiver();
+registerReceiver(receiver.filter);
+两种注册类型的区别是：
+1)第一种是常驻型广播，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行
+2)第二种是非常驻型，也就是说广播跟随程序的生命周期。
+
+
+
+##9、什么是ANR 如何避免它？
+         答：ANR：Application Not Responding。在Android中，活动管理器和窗口管理器这两个系统服务负责监视应用程序的响应，当用户操作的在5s内应用程序没能做出反应，BroadcastReceiver在10秒内没有执行完毕，就会出现应用程序无响应对话框，这既是ANR。
+避免方法：将所有耗时操作，比如访问网络，Socket 通信，查询大量 SQL 语句，复杂逻辑计算等都放在子线程中去，然后 通过 handler.sendMessage、runonUITread、AsyncTask 等方式更新 UI。无论如何都要确保用户界面操作的流畅度。如果耗时操作需要让用户等待，那么可以在界面上显示进度条
+
+
+
+##10、 描述一下android的系统架构
+1：应用程序
+       Android会同一系列核心应用程序包一起发布，该应用程序包包括email客户端，SMS短消息程序，日历，地图，浏览器，联系人管理程序等。所有的应用程序都是使用JAVA语言编写的。
+2：应用程序框架层
+     java应用程序开发人员主要是使用该层封装好的api进行快速开发
+3：系统运行库层
+     libraries：即c/c++函数库部分，大多数都是开放源代码的函数库
+4：linux核心层
+     Android 的核心系统服务依赖于 Linux 2.6 内核，如安全性，内存管理，进程管理， 网络协议栈和驱动模型。 Linux 内核也同时作为硬件和软件栈之间的抽象层
+
+
+
+##11、请介绍下ContentProvider是如何实现数据共享的
+一个程序可以通过实现一个Content provider的抽象接口将自己的数据完全暴露出去，而且Content providers是以类似数据库中表的方式将数据暴露。Content providers存储和检索数据，通过它可以让所有的应用程序访问到，这也是应用程序之间唯一共享数据的方法。
+要想使应用程序的数据公开化，可通过2种方法：创建一个属于你自己的Content provider或者将你的数据添加到一个已经存在的Content provider中，前提是有相同数据类型并且有写入Content provider的权限。
+如何通过一套标准及统一的接口获取其他应用程序暴露的数据？
+Android提供了ContentResolver，外界的程序可以通过ContentResolver接口访问ContentProvider提供的数据。                          
+
+
+
+##12、 Q ：①在 Listview的优化中 ，我们为何使用ConvertView？②为何使用ViewHolder？③你认为哪个更 能解决问题？④你认为view.inflate和view.findviewById哪个更耗时，为什么？⑤如果这两个AP让 你重新写，你怎么写？ 
+
+①使用ConvertView可以实现对view的复用，这样大大节约了每次创建对象的时间，提升了 ListView的显示效率。
+②使用ViewHolder作为内部类 ，可以将view的子控件封装在ViewHolder类 中，然后通过View.setTag(ViewHolder)将view和ViewHolder进行绑定 ，这样我们就不用每次都调 用view的findViewById(id)方法来查找控件。
+③使用ConvertView解决了一大部分问题，使用 ViewHolder实现了控件换时间的问题，因为给View对象设置一个Tag本身就是占用内存的，因此 ViewHolder的使用还是需要区分不同的应用场景的 ，没有绝对的好与不好。如果内存足够需要高则 ViewHolder建议使用，否则不建议使用。
+④当然是view.inflate耗时，这个函数完成的功能把xml 布局文件通过pullParser的形式给解析到内存中需要io，需要递归子节点。⑤我其实还不太相信我 写出来的代码比Google官方写的好，如果让我写的话我可能会这样考虑，当用户在使用view.inflate 的时候将多个id作为数组添加到形参中，这样在初始化view的使用我就可以给这个view直接调用 setTag方法绑定需要的子控件。不过这个原生方法其实也应该保留共不同的需求使用。 
+
+
+
+##13、请叙述一下您对线程池的理解？
+合理利用线程池能够带来三个好处。
+第一：降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
+第二：提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。
+第三：提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。
+
+
+
+##14、Android中的对话框有两种：PopupWindow和AlertDialog区别
+
+（1）Popupwindow在显示之前一定要设置宽高，Dialog无此限制。
+（2）Popupwindow默认不会响应物理键盘的back，除非显示设置popup.setFocusable(true);而在点击back时候Dialog会消失。
+（3）Popupwindow不会给页面其他的部分添加蒙层，而Dialog会。
+（4）Popupwindow没有标题，Dialog默认有标题通过dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);取消标题（5）二者显示的时候都要设置Gravity。如果不设置，Dialog默认是Gravity.CENTER。
+（6）二者都有默认的背景，都可以通过setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));去掉。
+
+其中最本质的差别就是：AlertDialog是非阻塞式对话框：AlertDialog弹出时，后台还可以做事情；而PopupWindow是阻塞式对话框：PopupWindow弹出时，程序会等待，在PopupWindow退出前，程序一直等待，只有当我们调用了dismiss方法的后，PopupWindow退出，程序才会向下执行。这两种区别的表现是：AlertDialog弹出时，背景是黑色的，但是当我们点击背景，AlertDialog会消失，证明程序不仅响应AlertDialog的操作，还响应其他操作，其他程序没有被阻塞，这说明了AlertDialog是非阻塞式对话框；PopupWindow弹出时，背景没有什么变化，但是当我们点击背景的时候，程序没有响应，只允许我们操作PopupWindow，其他操作被阻塞。
+
+
+
+##15、volatile 与synchronized区别：
+ 1.volatile本质是在告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取；synchronized则是锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住。
+ 2.volatile仅能使用在变量级别；synchronized则可以使用在变量、方法、和类级别的
+ 3.volatile仅能实现变量的修改可见性，不能保证原子性；而synchronized则可以保证变量的修改可见性和原子性
+ 4.volatile不会造成线程的阻塞；synchronized可能会造成线程的阻塞。
+ 5.volatile标记的变量不会被编译器优化；synchronized标记的变量可以被编译器优化
+
+
+
+##16、为什么ArrayList查询速度快于LinkedList
+
+ArrayList从原理上就是数据结构中的数组，也就是内存中一片连续的空间，这意味着，当get（index）的时候，我可以根据数组的（首地址+偏移量），
+直接计算出我想访问的第index个元素在内存中的位置。
+LinkedList可以简单理解为数据结构中的链表（说简单理解，因为其实是双向循环链表）在内存中开辟的不是一段连续的空间，而是每个元素有一个[元素|下一元素地址]这样的内存结构。当get（index）时，只能从首元素开始，依次获得下一个元素地址。
+用时间复杂度表示的话，ArrayList的get（n）是o（1），而LinkedList是o（n）。
+
+
+
+ ##17、Http和Https的区别？
+1）Https是ssl加密传输，Http是明文传输
+2）Https是使用端口443，而Http使用80
+3）HttpsSSL+HTTP协议构建的可进行加密传输、身份认证的网络协议要比Http协议安全
+4）Https协议需要到CA申请证书
+
+
+
+##18、Oom 是否可以try catch ？ 
+
+只有在一种情况下，这样做是可行的： 
+在try语句中声明了很大的对象，导致OOM，可以确认OOM是由try语句中的对象声明导致的，那么在catch语句中，可以释放掉这些对象，解决OOM的问题，继续执行剩余语句。 
+但是这通常不是合适的做法。Java中管理内存除了显式地catch OOM之外还有更多有效的方法：比如SoftReference, WeakReference, 硬盘缓存等。在JVM用光内存之前，会多次触发GC，这些GC会降低程序运行的效率。如果OOM的原因不是try语句中的对象（比如内存泄漏），那么在catch语句中会继续抛出OOM
+
+
+
+##19、在activity的初始化方法里面new一个子线程，在子线程里面刷新view会不会崩
+     不会崩溃，执行onResume后，viewRoot就能创建好，这个时候就会执行UI线程检查了
+
+
+
+##20、Volley能否下载电影以及加载100M的图片？
+
+    不可以,，Volley适合数据量小，频率快的请求
+
+#Volley的网络请求线程池默认大小为4。意味着可以并发进行4个请求，大于4个，会排在队列中。
+
+Request#getBody() 方法返回byte[]类型，作为 Http.POST 和 Http.PUT body 中的数据。这就意味着需要把用 http 传输的数据一股脑读取到内存中。如果文件过大，内存不足容易oom。
+
+考虑这样一个场景: 你同时上传4个文件，这四个文件都很大，这时候你的内存占用就很高，很容易oom。 这时候，你发网络请求，调用普通api。 所有的网络线程都被上传文件的任务占满了，你的网络请求只有在文件上传完毕后才能得到执行。
+
+
+
+##21、如何解决webView性能问题？
+
+1、将资源文件放到本地
+一般加载一个H5页面, 都会产生较多的网络请求, 如图片、js文件、css文件等, 需要将这些资源都下载完成之后才能完成渲染, 这样也会导致页面渲染速度变慢，主要思路就是一些资源文件都使用App本地资源, 而不需要从网络下载, 从而提高页面的打开速度。
+2、WebView的初始化进行资源预加载
+我们可以在Application预先初始化好WebView, 当第二次初始化WebView的时候直接将其拿来使用，在客户端初始化WebView的同时，直接由native开始网络请求数据, 当页面初始化完成后，向native获取其代理请求的数据, 数据请求和WebView初始化可以并行进行，缩短总体的页面加载时间。
+
+
+3、H5缓存机制（WebView自带）
+      (1)浏览器缓存机制                                  (2)Application Cache缓存机制                  (3)Dom Storage 缓存机制
+      (4) Web Sql Database缓存机制            (5)Indexed Database缓存机制
+   H5缓存模式
+// LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
+// LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
+// LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
+// LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
+具体使用：
+WebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+
+
+
+##22、EventBus的ThreadMode类型
+1、ThreadMode.MAIN标注方法运行在主线程，可以更新UI
+2、ThreadMode.BACKGROUND标注方法运行在子线程，,不可以更新UI但可以执行耗时代码
+3、ThreadMode.POSTING  运行在跟post一样的线程。如果post在主线程此时相当于MAIN,反之相当于BACKGROUND
+4、ThreadMode.ASYNC标注方法运行在子程。但是跟BACKGROUND有区别。举个例子如果ASYNC标注的方法将要运行时有一个BACKGROUND标注的方法正在运行(延时10秒)，前者标注的方法不会等待10秒结束再运行，而是另外开一个线程运行。
+
+
+
+##23、Android性能优化
+                                                                            快
+
+哪些因素影响卡顿：1、UI,包括ui的绘制,刷新等     2、启动  3、页面跳转,前后台切换   4、及时反馈，点击事件,滑动,系统事件
+
+UI   :Android 显示过程可以简单概括为：Android 应用程序把经过测量,布局、绘制后的 surface 缓存数据，通过 SurfaceFlinger 把数据渲染到显示屏幕上， 通过 Android 的刷新机制来刷新数据。也就是说应用层负责绘制，系统层负责渲染，通过进程间通信把应用层需要绘制的数据传递到系统层服务，系统层服务通过刷新机制把数据更新到屏幕上。
+
+那么我们如何解决呢，主要从两点入手：ui布局，绘制优化和主线程优化？
+1、布局优化：
+       （1）减少不必要的嵌套，一般建议不超过5层
+       （2）合理使用各种布局，尽量使用 LinearLayout 和 FrameLayout，因为 RelativeLayout 需要比较复杂，测绘也比较费时，                     强调  一下这个是相对的,不是说 LinearLayout 一定比 RelativeLayout 好。
+       （3）合理使用 include、merge 和 ViewStub,使用include和merge增加复用，减少层级; ViewStub 按需加载。
+
+2、绘制优化：
+       我们之前说过根据 Android 系统显示的原理，View 的绘制频率保证 60fps 是最佳的，这就要求每帧绘制时间不超过                        16ms(16ms = 1000/60),因此要减轻 onDraw() 的负担。所以在绘制时要注意两点：
+          onDraw 中不要创建新的局部对象。
+          onDraw 方法中不要做耗时的任务。
+还有就是刷新，刷新的话尽量减少不必要的刷新和尽可能减少刷新面积
+
+3、启动优化：
+        Application 的创建过程中尽量少的进行耗时操作。比如：Application 的 onCreate() 中进行友盟，bugly, okhttp，地图，推送等 init() 等操作。如果是必须在 onCreate 中进行的如：okhttp 等网络请求框架我们在 onCreate 中进行，其他的友盟，百度地图啥的我们可以等程序起来后再 onResume 方法中执行，bugly 等 sdk 可以异步加载。
+
+                                                                                        稳
+
+4、主线程优化：
+        主线程优化大多指内存优化，哪些引起内存泄漏呢？
+         1、集合类泄漏        2、单例/静态变量引起泄漏  3、匿名内部类/非静态内部类    4、资源未关闭引起泄漏
+          （1）比如我们的List集合add()元素之后，会引用着集合元素对象，导致该集合中的元素对象无法被回收，从而导致内存泄露。当我们的List集合没有用的时候，一定要list.clear()           list=null
+          （2）针对单例引起的内存泄漏，通常是由于引用的context是生命周期短造成的，也就是说生命周期长的持有了生命周期短的引用，造成了内存泄漏。比如Toast，我们传入的是MainActivity，但MainActivity没有用了，需要被销毁，但我们的Tost依然持有其引用导致无法回收，这就导致了内存泄漏。
+          （3）匿名内部类或非静态内部类导致的内存泄漏，这个我们可以采用合理使用JAVA的引用机制来解决Android-强，软，弱，虚引用
+          （4）资源未关闭有网络，文件流忘关闭，广播退出未销毁，服务停止未关闭，eventbus解除注册，bitmap及时回收
+
+                                                                                        小
+
+通常我减小 apk 体积的方式都是：先用 studio 自带的代码扫描分析工具 lint 删除无用资源;开启混淆，设置   shrinkResources true和 minifyEnabled true;当然你也可以借助第三方工具如 :乐固加固，360压缩啥的；还有注意不要重复使用库；插件化，比如功能模块放在服务器上，按需下载，可以减少安装包大小等都是常见的减少 apk 体积的方式。
+
+                                                                                       省
+
+省电
+
+谷歌在5.0之后才有像样的方案，至于更细的耗电分析可以使用这个Battery Historian。
+
+Battery Historian 是由Google提供的Android系统电量分析工具，从手机中导出bugreport文件上传至页面，在网页中生成详细的图表数据来展示手机上各模块电量消耗过程，最后通过App数据的分析制定出相关的电量优化的方法。
+
+具体功能：
+1、可以推迟的非面向用户的任务(如定期数据库数据更新)；
+2、当充电时才希望执行的工作(如备份数据)；
+3、需要访问网络或 Wi-Fi 连接的任务(如向服务器拉取配置数据)；
+4、零散任务合并到一个批次去定期运行；
+5、当设备空闲时启动某些任务；
+6、只有当条件得到满足, 系统才会启动计划中的任务（充电、WIFI…）。
+
+省内存
+主要是加载图片,动不动就 OOM,对于图片的压缩无非是：
+图片尺寸压缩
+图片质量压缩
+
+
+
+##24、MVP如何管理Presenter的生命周期，何时取消网络请求
+定义Presenter基类
+       interface BasePresenter {
+                  void onStart();
+                  void onDestroy();
+           }
+让所有的Presenter都继承BasePresenter,然后在activity中相应的生命周期里面调用在相应的方法里面,初始化,结束异步操作,释放资源,将view=null;
+而在activity里面,由于Presenter并没有view的引用了,所以p随着activity的销毁也就跟着销毁了.不会造成上下文的泄漏等.
+
+
+
+##25、android点击桌面App图标activity启动流程
+
+1、点击桌面App图标，Launcher进程采用Binder IPC向system_server进程发起startActivity请求；
+2、system_server进程接收到请求后，向zygote进程发送创建进程的请求；
+3、Zygote进程fork出新的子进程，即App进程；
+4、App进程，通过Binder IPC向sytem_server进程发起attachApplication请求；
+5、system_server进程在收到请求后，进行一系列准备工作后，再通过binder IPC向App进程发送scheduleLaunchActivity请求；
+6、App进程的binder线程（ApplicationThread）在收到请求后，通过handler向主线程发送LAUNCH_ACTIVITY消息；
+7、主线程在收到Message后，通过发射机制创建目标Activity，并回调Activity.onCreate()等方法。
+
+到此，App便正式启动，开始进入Activity生命周期，执行完onCreate/onStart/onResume方法
+
+
+
+##26、Listview跟Recyclerview的区别（刷新，缓存，各自的使用场景）
+ 2.1 缓存机制对比
+
+1. 层级不同：
+RecyclerView比ListView多两级缓存，支持多个ItemView缓存，支持开发者自定义缓存处理逻辑，支持所有RecyclerView共用同一个RecyclerViewPool(缓存池)。
+ListView(两级缓存)： mActiveViews      mScrapViews  
+RecyclerView(四级缓存)  mAttachedScrap    mCacheViews     mViewCacheExtension   mRecyclerPool  
+
+ListView和RecyclerView缓存机制基本一致：
+
+1). mActiveViews和mAttachedScrap功能相似，意义在于快速重用屏幕上可见的列表项ItemView，而不需要重新createView和bindView；
+2). mScrapView和mCachedViews + mReyclerViewPool功能相似，意义在于缓存离开屏幕的ItemView，目的是让即将进入屏幕的ItemView重用.
+3). RecyclerView的优势在于
+      a  . mCacheViews的使用，可以做到屏幕外的列表项ItemView进入屏幕内时也无须bindView快速重用；
+      b.   mRecyclerPool可以供多个RecyclerView共同使用，在特定场景下，如viewpaper+多个列表页下有优势.客观来说，RecyclerView在特定场景下对ListView的缓存机制做了补强和完善。
+
+2. 缓存不同：
+
+1). RecyclerView缓存RecyclerView.ViewHolder，抽象可理解为：
+View + ViewHolder(避免每次createView时调用findViewById) + flag(标识状态)；
+2). ListView缓存View。
+
+2.2 局部刷新
+
+RecyclerView更大的亮点在于提供了局部刷新的接口，通过局部刷新，就能避免调用许多无用的bindView。
+结合RecyclerView的缓存机制，看看局部刷新是如何实现的：
+以RecyclerView中notifyItemRemoved(1)为例，最终会调用requestLayout()，使整个RecyclerView重新绘制，过程为：
+onMeasure()-->onLayout()-->onDraw()
+
+其中，onLayout()为重点，分为三步：
+dispathLayoutStep1()：记录RecyclerView刷新前列表项ItemView的各种信息，如Top,Left,Bottom,Right，用于动画的相关计算；
+dispathLayoutStep2()：真正测量布局大小，位置，核心函数为layoutChildren()；
+dispathLayoutStep3()：计算布局前后各个ItemView的状态，如Remove，Add，Move，Update等，如有必要执行相应的动画.
+
+
+
+##27、了解插件化和热修复吗，它们有什么区别，理解它们的原理吗？
+
+插件化：插件化是体现在功能拆分方面的，它将某个功能独立提取出来，独立开发，独立测试，再插入到主应用中。依次来较少主应用的规模。
+
+热修复：热修复是体现在bug修复方面的，它实现的是不需要重新发版和重新安装，就可以去修复已知的bug。
+
+利用PathClassLoader和DexClassLoader去加载与bug类同名的类，替换掉bug类，进而达到修复bug的目的，原理是在app打包的时候阻止类打上CLASS_ISPREVERIFIED标志，然后在热修复的时候动态改变BaseDexClassLoader对象间接引用的dexElements，替换掉旧的类。
+
+目前热修复框架主要分为两大类：(1)Sophix：修改方法指针。(2)  Tinker：修改dex数组元素
+
+
+
+##28、SetContentView干了什么？
+    public void setContentView(@LayoutRes int layoutResID) {
+        getWindow().setContentView(layoutResID);
+        initWindowDecorActionBar();
+    }
+
+这是Activity中的setContentView方法的实体，我们可以看到干了两件事情：
+（1）调用了Window的setContentView方法
+（2）实处化ActionBar 
+我们主要关注Window的setContentView方法。 从Activity的attach方法可以知道，mWindow的实体是PhoneWindow：
+mWindow = PolicyManager.makeNewWindow(this);
+
+对setContentView方法的解析到这里就分析的差不多了。我们总结一下它干了些什么： 
+1. 初始化DecorView(对于一个window来说最顶级的view) 
+2. 根据Window的属性选择合适的布局模板add到DecorView中 
+3. 将我们的布局add到一个id为com.android.internal.R.id.content的ViewGroup中
+
+
+
+##29、广播发送和接收的原理了解吗？
+（1）继承BroadcastReceiver，重写onReceive()方法。
+（2）通过Binder机制向ActivityManagerService注册广播。
+（3）通过Binder机制向ActivityMangerService发送广播。
+（4）ActivityManagerService查找符合相应条件的广播（IntentFilter/Permission）的BroadcastReceiver，将广播发送到BroadcastReceiver所在的消息队列中。
+（5）BroadcastReceiver所在消息队列拿到此广播后，回调它的onReceive()方法。
+
+
+
+##30、广播传输的数据是否有限制，是多少，为什么要限制？
+（1）广播是通过Intent携带需要传递的数据的
+（2）Intent是通过Binder机制实现的
+（3）Binder对数据大小有限制，不同room不一样，一般为1M
+
+
+
+
+##31、onNewIntent被回调，Intent内容是最新的么？那其他回调里的Intent是最新的么？
+     在onNewIntent方法中的Intent是最新，但是其他回调里不是。如果想让其他回调也是最新的intent，需要在onNewIntent里，setIntent()，对最新的intent进行赋值
+
+
+
+
+##32、为何需要进行IPC?多进程通信可能会出现什么问题？
+       因为所有运行在不同进程的四大组件，只要它们之间需要通过内存在共享数据，都会共享失败。这是由于Android为每个应用分配了独立的虚拟机，不同的虚拟机在内存分配上有不同的地址空间，这会导致在不同的虚拟机中访问同一个类的对象会产生多份副本。
+问题：
+ （1）静态变量和单例模式失效：由独立的虚拟机造成
+ （2）线程同步机制失效：由独立的虚拟机造成
+ （3）SharedPreference的不可靠下降：不支持两个进程同时进行读写操作，即不支持并发读写，有一定几率导致数据丢失（4）Application多次创建： Android系统会为新的进程分配独立虚拟机，相当于系统又把这个应用重新启动了一次。
+
+
+
+
+##33、Serializable与Parcelable两个序列化区别？
+序列化原因：
+1.永久性保存对象，保存对象的字节序列到本地文件中；
+2.通过序列化对象在网络中传递对象；
+3.通过序列化在进程间传递对象。 
+
+但是Serializable与Parcelable两个都是序列化，什么时候用哪个呢？
+
+1.在使用内存的时候，Parcelable 类比Serializable性能高，所以推荐使用Parcelable类。
+2.Serializable在序列化的时候会产生大量的临时变量，从而引起频繁的GC。
+3.Parcelable不能使用在要将数据存储在磁盘上的情况，因为Parcelable不能很好的保证数据的持续性在外界有变化的情况下。尽管Serializable效率低点， 也不提倡用，但在这种情况下，还是建议你用Serializable 。
+
+
+
+
+##34、AIDL如何工作？能处理哪些类型的数据？ 
+      AIDL一般用于远程服务,也就是进程间通信。我们可以分服务端和客户端,服务端声明AIDL文件,该文件命名为xxx.aidl,ADT会自动将xxx.aidl生成代码文件，代码文件提供了aidl中接口的实现。客户端如果要使用服务端提供的服务需要将xxx.aidl文件放到客户端源代码目录下,然后生成xxx.java类 ， 
+
+    客户端通过bindService的形参ServiceConnection的onServiceConnected获取到Service对象，这个对象通过Stub.asInterface （service）返回aidl的实现类。之后我们就可用调用这个aidl的实现类。 
+
+③ 基本数据类型都可以，复杂对象也可以，只不过需要实现 Parcelable接口。
+
+
+
+
+##35、Android Binder机制是做什么的，为什么选用Binder，原理了解吗？
+   （1）继承了IBinder接口
+   （2） Binder是一种跨进程通信方式
+   （3）是ServiceManager连接各种Manager（ActivityManager,WindowManager等）和相应ManagerService的桥梁
+   （4）从Android应用层来说，Binder是客户端和服务端进行通信的媒介。
+为什么选用Binder，在讨论这个问题之前，我们知道Android也是基于Linux内核，Linux现有的进程通信手段有以下几种：
+
+管道：在创建时分配一个page大小的内存，缓存区大小比较有限；
+消息队列：信息复制两次，额外的CPU消耗；不合适频繁或信息量大的通信；
+共享内存：无须复制，共享缓冲区直接付附加到进程虚拟地址空间，速度快；但进程间的同步问题操作系统无法实现，必须各进程利用同步工具解决；
+套接字：作为更通用的接口，传输效率低，主要用于不通机器或跨网络的通信；
+信号量：常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。
+信号: 不适用于信息交换，更适用于进程中断控制，如非法内存访问，杀死某个进程等；
+既然有现有的IPC方式，为什么重新设计一套Binder机制呢。主要是出于以上三个方面的考量：
+
+高性能：从数据拷贝次数来看Binder只需要进行一次内存拷贝，而管道、消息队列、Socket都需要两次，共享内存不需要拷贝，Binder的性能仅次于共享内存。
+稳定性：上面说到共享内存的性能优于Binder，那为什么不适用共享内存呢，因为共享内存需要处理并发同步问题，控制负责，容易出现死锁和资源竞争，稳定性较差。而Binder基于C/S架构，客户端与服务端彼此独立，稳定性较好。
+安全性：我们知道Android为每个应用分配了UID，用来作为鉴别进程的重要标志，Android内部也依赖这个UID进行权限管理，包括6.0以前的固定权限和6.0以后的动态权限，传荣IPC只能由用户在数据包里填入UID/PID，这个标记完全 是在用户空间控制的，没有放在内核空间，因此有被恶意篡改的可能，因此Binder的安全性更高。
+
+
+
+
+##36、Android的IPC方式
+
+1、使用Bundle
+   Activity，Service,Receiver都是支持在Intent中传递Bundle数据，Bundle实现了Parcelable接口，方便的在不同的进程间传输。
+
+2、使用文件共享
+     两个进程通过读写同一个文件交换数据，通过共享的文件也是有局限性的，比如并发读写的问题，如果并发读，那么我们读出的内容具有可能不是最新的，因此文件共享方式是个对数据同步要求不高的进程之间通信。
+     本质上来说SharedPreferences属于文件的一种，由于系统对他的读写有一定的缓存策略，即在内存中会有一份文件缓存，因此在多进程模式下，系统对他的读写变得不可靠，当面对高并发访问，SharedPreferences很大几率丢失数据，因此不建议在进程中通信使用SharedPreferences.
+
+3、使用Messenger
+    Messenger对AIDL做了封装，底层实现就是AIDL，方便进程间通信，由于一次处理一个请求，因此在服务端不用考虑线程同步问题，不存在并发执行的情形。
+    接下里看下使用步骤
+    服务端：
+     1、建一个handler对象，并实现hanlemessage方法，用于接收来自客户端的消息，并作处理
+     2、messenger(送信人),封装handler
+     3、messenger的getBinder()方法获取一个IBinder对象，通过onBind返回给客户端
+    客户端：
+    1.在activity中绑定服务
+    2.创建ServiceConnection并在其中使用 IBinder 将 Messenger实例化
+    3.使用Messenger向服务端发送消息
+    4.解绑服务
+    5.服务端中在 hadleMessage() 方法中接收每个 Message
+
+上面实现的仅仅是单向通信，即客户端给服务端发送消息，如果我需要服务端给客户端发送消息又该怎样做呢？
+下面就让我们接着上面的步骤来实现双向通信吧
+1.在客户端中创建一个Handler对象，用于处理服务端发过来的消息
+2.创建一个客户端自己的messenger对象，并封装handler。
+3.将客户端的Messenger对象赋给待发送的Message对象的replyTo字段
+4.在服务端的Handler处理Message时将客户端的Messenger解析出来，并使用客户端的Messenger对象给客户端发送消息
+
+4、使用AIDL
+     使用AIDL进行进程间通信分为服务端和客户端两方面：
+    （1）、服务端
+     服务端首先创建一个Service用来监听客户端的连接请求，然后创建一个AIDL文件，将暴露给客户端的接口在这个AIDL文件中声明，最后在Service中实现这个接口。
+    （2）、客户端
+    首先绑定服务端的Service，绑定成功后将服务端返回的Binder对象转成AIDL接口所属的类型，可以调用AIDL中的方法了。
+   （3）、AIDL接口的创建
+    新建一个后缀为AIDL的文件，声明一个接口两个方法
+       interface IBookManager {
+           List<Book> getBookList();
+             void addBook(in Book book);
+            }
+   AIDL文件中并不是所有的数据类型都支持的，那么支持数据的类型有：
+         基本数据类型(int,long,char,boolean等)
+         String和CharSequence
+         List：只支持ArrayList
+         Map：只支持HashMap
+         Parcelable：所有实现Parcelable接口的对象
+         AIDL：所有AIDL接口本身也可以在AIDL文件中使用
+
+     （4）远程服务端Service的实现
+     （5）客户端的实现
+           首先绑定远程服务，绑定成功后将服务端返回的Binder对象转换成AIDL接口，然后可以通过这个接口去调用服务端的远程方法了。
+5、使用ContentProvider
+      继承ContentProvider，实现6个抽象方法：onCreate,query,update,insert,delete,getType
+     （1）ContentProvider主要以表格的形式来组织数据，并且可以包含多个表；
+     （2）ContentProvider还支持文件数据，比如图片、视频等，系统提供的MediaStore就是文件类型的ContentProvider；
+     （3）ContentProvider对底层的数据存储方式没有任何要求，可以是SQLite、文件，甚至是内存中的一个对象都行；
+     （4）要观察ContentProvider中的数据变化情况，可以通过ContentResolver的registerContentObserver方法来注册观察者；
+
+6、使用Socket套接字，分为流式套接字和用户数据报套接字两种，分别对应于网络的传输控制层中TCP和UDP协议。
+          TCP协议是面向连接的协议，提供稳定的双向通信功能，TCP连接的建立需要经过"三次握手"才能完成，为了提供稳定的数据传输功能，其本身提供了超时重传功能，因此具有很高的稳定性
+         UDP是无连接的，提供不稳定的单向通信功能，当然UDP也可以实现双向通信功能，在性能上，UDP具有更好的效率，其缺点是不保证数据能够正确传输，尤其是在网络拥塞的情况下。
+
+
+
+
+##37、IPC方式对比
+Bundle:          优点:简单易用                 缺点：只传输Bundle支持数据类型                        适用场景：四大组件间进程通信
+文件共享:       优点:简单易用                  缺点：不适合高并发,无法做到进程间即时通信     适用场景：无并发,实时性不高的场景
+AIDL:             优点:一对多并发实时通信      缺点：使用复杂,处理好线程同步                     适用场景：一对多通信且有RPC需求
+Messenger:   优点:一对多并发实时通信      缺点：不适合高并发,只传输Bundle支持数据类型    适用场景：低并发一对多通信
+ContentProvider:    优点:一对多并发数据共享         缺点：提供数据源CRUD操作            适用场景：一对多进程间数据共享
+Socket:          优点:网络传输字节流,一对多并发实时通信         缺点：细节繁琐                  适用场景：网络数据交换
+
+
+
+
+##38、View事件的滑动三种方式
+      第一种通过View本身提供的scrollTo/ScrollBy方法
+      第二种通过动画给View施加平移效果实现滑动
+      第三种通过改变View的LayoutParams使得view重新布局实现滑动
+
+1、使用scrollTo/scrollBy scrollTo和scrollBy方法只能改变view内容的位置而不能改变view在布局中的位置。 scrollBy是基于当前位置的相对滑动，而scrollTo是基于所传参数的绝对滑动。通过View的getScrollX和getScrollY方法可以得到滑动的距离。
+
+2、使用动画 使用动画来移动view主要是操作view的translationX和translationY属性
+
+3、改变布局参数 通过改变LayoutParams的方式去实现View的滑动是一种灵活的方法。
+
+4、各种滑动方式的对比
+              scrollTo/scrollBy:操作简单，适合对View内容的滑动
+              动画：操作简单，主要适用于没有交互的View和实现复杂的动画效果
+              改变布局参数：操作稍微复杂，适用于有交互的View
+
+
+
+
+##39、View的生命周期
+
+View 的生命周期为
+ [改变可见性] --> 构造View --> onFinishInflate --> onAttachedToWindow --> onMeasure -->  onSizeChanged --> onLayout --> onDraw -->onDetackedFromWindow总的可以归结三点：
+(1)  在Activity onCreate方法中初始化了View 的时候, 调用了View 的onFinishInflate
+(2)  执行完 Activity的 onResume 方法之后，开始了View的绘制工作：onMeasure -->  onSizeChanged --> onLayout --> onDraw
+(3) onMeasure,onSizeChanged,onLayout,onDraw可能由于setVisible或onresume调用多次，而onAttachedToWindow与onDetachedFromWindow在创建与销毁view的过程中只会调用一次
+
+
+
+
+##40、viewroot什么时候创建的
+     那么在什么时候viewRoot会被创建呢，答案是执行onResume后，viewRoot就能创建好，这个时候就会执行UI线程检查了，所以在onCreate->onStart->onResume中都可以在子线程中更新UI。
+
+
+
+##41、View、surfaceView、GLSurfaceView区别
+View
+显示视图，内置画布，提供图形绘制函数、触屏事件、按键事件函数等，必须在UI主线程内更新画面，速度较慢
+SurfaceView
+基于view视图进行拓展的视图类，更适合2D游戏的开发，是view的子类，类似使用双缓机制，在新的线程中更新画面所以刷新界面速度比view快
+GLSurfaceView
+基于SurfaceView视图再次进行拓展的视图类，专用于3D游戏开发的视图，是surfaceView的子类，openGL专用
+
+
+
+##42、事件分发中的 onTouch 和 onTouchEvent 有什么区别，又该如何使用？
+这两个方法都是在 View 的 dispatchTouchEvent 中调用的，onTouch 优先于 onTouchEvent 执行。如果在onTouch 方法中通过返回 true 将事件消费掉，onTouchEvent 将不会再执行。
+另外需要注意的是，onTouch 能够得到执行需要两个前提条件，第一 mOnTouchListener 的值不能为空，第二当前点击的控件必须是 enable 的。因此如果你有一个控件是非 enable 的，那么给它注册 onTouch 事件将永远得不到
+执行。对于这一类控件，如果我们想要监听它的 touch 事件，就必须通过在该控件中重写 onTouchEvent 方法来实现
+
+
+
+##43、SurfaceView, TextureView区别？
+    从性能和安全性角度出发，使用播放器优先选SurfaceView。
+1.在android 7.0上系统surfaceview的性能比TextureView更有优势，支持对象的内容位置和包含的应用内容同步更新，平移、缩放不会产生黑边。 在7.0以下系统如果使用场景有动画效果，可以选择性使用TextureView
+2.SurfaceView优点及缺点优点：可以在一个独立的线程中进行绘制，不会影响主线程，使用双缓冲机制，播放视频时画面更流畅
+缺点：Surface不在View hierachy中，它的显示也不受View的属性控制，所以不能进行平移，缩放等变换，也不能放在其它ViewGroup中。SurfaceView 不能嵌套使用。
+3.TextureView优点及缺点
+优点：支持移动、旋转、缩放等动画，支持截图
+缺点：必须在硬件加速的窗口中使用，占用内存比SurfaceView高，在5.0以前在主线程渲染，5.0以后有单独的渲染线程。
+
+
+
+
+##44、ViewRoot和DecorView       
+      ViewRoot的实现是 ViewRootImpl 类，是连接WindowManager和DecorView的纽带，View的三大流程（ mearsure、layout、draw） 均是通过ViewRoot来完成。当Activity对象被创建完毕后，会将DecorView添加到Window中，同时创建 ViewRootImpl 对象，并将ViewRootImpl 对象和DecorView建立连接，源码如下：
+
+    root = new ViewRootImpl(view.getContext(),display);
+    root.setView(view,wparams, panelParentView);
+
+View的绘制流程是从ViewRoot的performTraversals开始的
+performTraversals会依次调用 performMeasure 、 performLayout 和performDraw 三个方法，这三个方法分别完成顶级View的measure、layout和draw这三大流程。其中 performMeasure 中会调用 measure 方法，在 measure 方法中又会调用 onMeasure 方法，在 onMeasure 方法中则会对所有子元素进行measure过程，这样就完成了一次measure过程；子元素会重复父容器的measure过程，如此反复完成了整个View数的遍历。另外两个过程同理。
+
+    Measure完成后, 可以通过getMeasuredWidth 、getMeasureHeight 方法来获取View测量后的宽/高。特殊情况下，测量的宽高不等于最终的宽高，详见后面。
+    Layout过程决定了View的四个顶点的坐标和实际View的宽高，完成后可通过 getTop 、 getBotton 、 getLeft 和 getRight 拿到View的四个定点坐标。
+
+
+
+##45、View滑动冲突
+滑动冲突的场景以及处理规则
+       场景1--外部上下滑动，内部左右滑动----的处理规则：
+                       1、当用户左右滑动时，让外部的View拦截点击事件，当用户上下滑动时，让内部的View拦截点击事件；
+                       2、判断用户的滑动方向，如果用户手指滑动的水平距离大于垂直距离，则左右滑动，反之，上下滑动                   
+       场景2--内外层两层同时上下滑动或者左右滑动----的处理规则：
+                      当处于某种状态需要外部View响应用户的滑动，而处于另一种状态时则需要内部View响应用户的滑动                     
+       场景3--内层有场景1滑动，外层场景2滑动，外层与中层的滑动方向一致，而中层与内层的滑动方向不一致--的处理规则：
+                      场景1的处理规则和场景2的处理规则一起用。
+
+滑动冲突解决方法           
+      针对场景一有两种解决滑动冲突的方法：外部拦截法和内部拦截法
+      外部拦截法需要重写父容器onInterceptTouchEvent方法，在内部做相应拦截即可，伪代码如下：
+                          public  boolean onInterceptTouchEvent (MotionEvent event) {
+                              boolean  intercepted = false ;
+                              int x = (int) event.getX();
+                              int y = (int) event.getY();
+                             switch(event.getAction()){
+                               case MotionEvent.ACTION_DOWN:  {
+                                         intercepted = false;
+                                         break;              
+                                     }
+                               case MotionEvent.ACTION_MOVE:  {
+                                       if (父容器需要处理当前事件){
+                                         intercepted = true;
+                                        } else{
+                                           intercepted = false;
+                                         }       
+                                       break;              
+                                     }
+                
+                               case MotionEvent.ACTION_UP:  {
+                                         intercepted = false;
+                                         break;              
+                                     }
+                        
+                              default:
+                              break;   
+                            }
+                            mLastXIntercept = x;
+                            mLastYIntercept = Y;
+                            return intercepted;
+                          }
+               
+内部拦截法指父容器不拦截任何事件，配合requestDisallowInterceptTouchEvent方法，重写子元素的dispathTouchEvent        
+                         public  boolean dispatchtTouchEvent (MotionEvent event) {
+                                         int x = (int) event.getX();
+                                          int y = (int) event.getY();
+                                         switch (event.getAction() ) {
+                                              case MotionEvent.ACTION_DOWN:  {
+                                                   parent.requestDisallowInterceptTouchEvent(true);
+                                                    break;             
+                                                          }
+                                             case MotionEvent.ACTION_MOVE:  {
+                                                     int  deltaX = x - mLastX;
+                                                     int  deltaY = y - mLastY;                
+                                                     if (父容器需要处理当前事件){
+                                                        parent.requestDisallowInterceptTouchEvent(false);
+                                                        }       
+                                                       break;              
+                                                      }                                 
+                                              case MotionEvent.ACTION_UP:  {
+                                                         break;              
+                                                      }  
+                                                  default:
+                                                  break;   
+                                                }
+                                                mLastX = x;
+                                                mLastY= Y;
+                                                return super.dispatchTouchEvent(event);
+                                              }
+
+
+
+##46、Handler创建源码分析
+* 创建Handler对象时，在构造方法中会获取Looper和MessageQueue的对象
+       public Handler() {
+            ......
+              mLooper = Looper.myLooper();
+                          if(mLooper == null){
+                              throw new RuntimeException;
+                              "can't create handler inside thread that has not called Looper.prepare() ";
+                         }
+            ...
+            mQueue = mLooper.mQueue;
+            mCallback = null;
+        }
+* 查看myLooper方法体，发现Looper对象是通过ThreadLocal.get()得到的，在查找ThreadLocal的set方法时发现 Looper是在prepare()方法中直接new出来的，
+                            public static final void prepare(){         
+                                sThreadLocal.set(new Looper())  
+                            }
+             并且在Looper的构造方法中，new出了消息队列对象
+                private Looper() {
+                mQueue = new MessageQueue();
+                mRun = true;
+                mThread = Thread.currentThread();
+            }
+    
+* prepare方法是在prepareMainLooper()主线程 方法中调用的
+        public static final void prepareMainLooper() {
+                  prepare();
+               ...
+        }
+
+* prepareMainLooper被调用是 在主线程main方法中，ActivityThread会被创建
+        public static final void main(String[] args) {
+                                  Looper.prepareMainLooper();
+            ......
+             //轮询器开始轮询，获取新消息
+             Looper.loop();
+            ...
+        }
+* Looper.loop()方法中有一个死循环,为什么不会造成ANR
+        while (true) {     //之所以会存在就是防止应用程序停止
+            //取出消息队列的消息
+             Message msg = queue.next();
+        }
+looper.loop() 不断地接收,处理事件，每一个点击触摸或者说Activity的生命周期都是运行在 Looper.loop() 的控制之下，如果while (true)停止了，应用也就停止了。只能是某一个消息或者说对消息的处理阻塞了 Looper.loop()，而不是 Looper.loop() 阻塞它。
+
+
+
+
+##47、子线程中能不能 new handler？为什么？
+
+不能,如果在子线程中直接 new Handler()会抛出异常 java.lang.RuntimeException: Can’t create handler inside thread that has not called，在没有调用 Looper.prepare()的时候不能创建 Handler,因为在创建 Handler 的源码中做了如下操作 
+Handler 的构造方法中
+
+
+
+##48、ThreadLocal，ReentrantLock，synchronized 区别以及应用场景
+
+线程局部变量（ThreadLocal）就是为每一个使用该变量的线程都提供一个变量值的副本，是每一个线程都可以独立地改变自己的副本，而不会和其它线程的副本冲突。从线程的角度看，就好像每一个线程都完全拥有该变量。 
+
+synchronized 的语义；如果线程进入由线程已经拥有的监控器保护的 synchronized 块，就允许线程继续进行，当线程退出第二个 synchronized 块的时候，不释放锁，只有线程退出它进入的监控器保护的第一个 synchronized 块时，才释放锁。
+
+ ReentrantLock 意味着什么呢？简单来说，它有一个与锁相关的获取计数器，如果拥有锁的某个线程再次得到锁，那么获取计数器就加1，然后锁需要被释放两次才能获得真正释放。
+
+
+
+
+##49、一个Thread可以有几个Looper？几个Handler？
+     一个Thread只能有一个Looper，可以有多个Handler
+      Looper有一个MessageQueue，可以处理来自多个Handler的Message；MessageQueue有一组待处理的Message，这些Message可来自不同的Handler；Message中记录了负责发送和处理消息的Handler；Handler中有Looper和MessageQueue
+
+
+
+##50、AsyncTask中使用的线程池大小？
+在AsyncTask内部实现有两个线程池
+SerialExecutor：用于任务的排队，默认是串行的线程池，在3.0以前核心线程数为5、线程池大小为128，而3.0以后变为同一时间只能处理一个任务
+THREAD_POOL_EXECUTOR：用于真正执行任务。
+
+
+
+##51、Invalidate、postInvalidate、requestLayout应用场景与区别
+（1）Invalidate和postInvalidate的区别
+  Android提供了Invalidate方法实现界面刷新，但是Invalidate不能直接在线程中调用，因为他是违背了单线程模型：Android UI操作并不是线程安全的，并且这些操作必须在UI线程中调用。 
+鉴于此，如果要使用invalidate的刷新，那我们就得配合handler的使用，使异步非ui线程转到ui线程中调用，如果要在非ui线程中直接使用就调用postInvalidate方法即可，这样就省去使用handler的烦恼。（但实际上postInvalidate() 底层的实现还是通过 Handler 的，但是底层封装起来了，让我们直接可以在子线程调用）
+（2）总结
+View绘制分三个步骤，顺序是：onMeasure，onLayout，onDraw。经代码亲测，log输出显示：调用invalidate方法只会执行onDraw方法；调用requestLayout方法只会执行onMeasure方法和onLayout方法，并不会执行onDraw方法。
+
+所以当我们进行View更新时，若仅View的显示内容发生改变且新显示内容不影响View的大小、位置，则只需调用invalidate方法；若View宽高、位置发生改变且显示内容不变，只需调用requestLayout方法；若两者均发生改变，则需调用两者，按照View的绘制流程，推荐先调用requestLayout方法再调用invalidate方法。
+requestLayout : 当当前布局的宽高发生改变的时候, 此时需要重新调用父view的onMeaure和onLayout, 来给子view重新排版布局
+invalidate : 让页面刷新, 重新调用onDraw方法,
+postInvalidate : 在子线程来让页面来进行刷新的方法
+
+
+
+##52、子线程中如何使用Handler
+子线程中没有Looper会抛异常，给他一个Looper就好了
+Looper.prepare();
+mHandler = new Handler(){
+    @Override
+  public void handleMessage(Message msg) {
+            Log.d(TAG," mHandler is coming");
+  handler_main.sendEmptyMessage(1);
+  }
+};
+mHandler.sendEmptyMessage(1);
+Looper.loop();
+如果在调用之前必须调用Looper.prepare()方法，这个是在当前线程中创建一个looper出来，如果是普通的应用场景可以直接使用HandlerThread，其中是带有Looper的。
+第二点值得注意的就是，Looper.loop()这个方法是无限循环的，所以在Looper.loop()后边的程序代码块是无法执行到的。loop()方法的主要作用是一直不断的通过queue.next()方法来读取来自messagequeue中的msg，这个方法是block的状态，如果queue中没有消息的话会一直阻塞在这里。
+关于Looper还有一个方法，当我们需要获取Looper实例时，可以直接在对应线程调用Looper looper = Looper.myLooper();来获取，默认情况下，系统只会给MainThread分配一个looper。
+
+
+
+##53、为什么不能在子线程刷新UI  
+    因为Android的UI控件不是线程安全的，多线程并发访问可能会导致UI控件处于不可预期的状态，为什么不加锁？因为加锁机制会让UI访问逻辑变得复杂；其次锁机制会降低UI访问的效率，因为锁机制会阻塞某些线程的执行。所以Android采用了高效的单线程模型来处理UI操作。
+
+
+
+
+##54、HandlerThread产生背景
+      当系统有多个耗时任务需要执行时，每个任务都会开启一个新线程去执行耗时任务，这样会导致系统多次创建和销毁线程，从而影响性能。为了解决这一问题，Google提供了HandlerThread，HandlerThread是在线程中创建一个Looper循环器，让Looper轮询消息队列，当有耗时任务进入队列时，则不需要开启新线程，在原有的线程中执行耗时任务即可，否则线程阻塞
+
+
+
+
+##55、HanlderThread的特点
+
+HandlerThread本质上是一个线程，继承自Thread
+HandlerThread有自己的Looper对象，可以进行Looper循环，可以创建Handler
+HandlerThread可以在Handler的handlerMessage中执行异步方法
+HandlerThread优点是异步不会堵塞，减少对性能的消耗
+HandlerThread缺点是不能同时继续进行多任务处理，需要等待进行处理，处理效率较低
+HandlerThread与线程池不同，HandlerThread是一个串行队列，背后只有一个线程。
+
+
+
+56、###IntentService是什么      
+IntentService是继承自Service并处理异步请求的一个类，其内部采用HandlerThread和Handler实现的，在IntentService内有一个工作线程来处理耗时操作，其优先级比普通Service高。当任务完成后，IntentService会自动停止，而不需要手动调用stopSelf()。另外，可以多次启动IntentService，每个耗时操作都会以工作队列的方式在IntentService中onHandlerIntent()回调方法中执行，并且每次只会执行一个工作线程
+
+
+
+
+
+
